@@ -97,7 +97,7 @@ const HeroSection: React.FC = () => {
               <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-black/50 border border-white/10 backdrop-blur-md">
                 <Clock className="h-4 w-4 text-emerald-300" />
                 <div>
-                  <div className="font-semibold text-white">20–30 min sessions</div>
+                  <div className="font-semibold text-white">30 - 60 min sessions</div>
                   <div className="text-[11px] text-gray-400">
                     Perfect for squads & parties
                   </div>
