@@ -16,7 +16,6 @@ type Game = {
   tags: string[];
 };
 
-// ملاحظة: غيّر روابط الـ trailer لروابط Cloudinary تبعتك (video/mp4)
 const games: Game[] = [
   {
     id: 1,
@@ -106,7 +105,7 @@ const statusLabel: Record<Game["status"], string> = {
 
 const GamesSection: React.FC = () => {
   return (
-    <section className="games-section">
+    <section id="Games" className="games-section">
       <div className="games-header">
         <div>
           <p className="eyebrow">
@@ -115,8 +114,9 @@ const GamesSection: React.FC = () => {
           </p>
           <h2 className="games-title">Step into the PixelRealm VR</h2>
           <p className="games-subtitle">
-            Six insane VR simulators, high-motion rigs, and full 360° immersion
-            built for your arcade experience.
+            Six insane VR rigs with full-motion platforms, arena battles, and
+            360° cinematic worlds. Hover to preview a live trailer for each
+            simulator.
           </p>
         </div>
 
@@ -145,11 +145,12 @@ const GamesSection: React.FC = () => {
             className="game-card"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.07, duration: 0.45 }}
-            whileHover={{ y: -10, scale: 1.02 }}
+            transition={{ delay: index * 0.06, duration: 0.45 }}
+            whileHover={{ y: -8, scale: 1.015 }}
           >
             <div className="game-media">
-              {/* صورة المحاكي */}
+              <div className="game-media-glow" />
+
               <img
                 src={game.thumbnail}
                 alt={game.title}
@@ -157,39 +158,43 @@ const GamesSection: React.FC = () => {
                 loading="lazy"
               />
 
-              {/* فيديو الترايلر اللي يطلع على الـ hover */}
-              <video
-                className="game-video"
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
+              <video className="game-video" autoPlay muted loop playsInline>
                 <source src={game.trailer} type="video/mp4" />
               </video>
 
               <div className="game-media-overlay" />
 
-              <div className="game-status-pill">
-                {game.status === "hot" && <Flame size={14} />}
-                {game.status === "featured" && <Star size={14} />}
-                {game.status === "new" && <Sparkles size={14} />}
-                <span>{statusLabel[game.status]}</span>
-              </div>
+              <div className="game-status-row">
+                <div className="game-status-pill">
+                  {game.status === "hot" && <Flame size={14} />}
+                  {game.status === "featured" && <Star size={14} />}
+                  {game.status === "new" && <Sparkles size={14} />}
+                  <span>{statusLabel[game.status]}</span>
+                </div>
 
-              <div className="game-rating-chip">
-                <Star size={12} />
-                <span>{game.rating.toFixed(1)}</span>
+                <div className="game-rating-chip">
+                  <Star size={12} />
+                  <span>{game.rating.toFixed(1)}</span>
+                </div>
               </div>
             </div>
 
             <div className="game-body">
               <header className="game-header">
-                <h3 className="game-title">{game.title}</h3>
+                <div>
+                  <h3 className="game-title">{game.title}</h3>
+                  <p className="game-genre">{game.genre}</p>
+                </div>
                 <span className="game-platform">{game.platform}</span>
               </header>
 
-              <p className="game-genre">{game.genre}</p>
+              <div className="game-tags">
+                {game.tags.map((tag) => (
+                  <span className="game-tag" key={tag}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
               <div className="game-meta">
                 <span className="game-meta-pill">
@@ -200,14 +205,6 @@ const GamesSection: React.FC = () => {
                   <Gamepad2 size={14} />
                   VR Simulator
                 </span>
-              </div>
-
-              <div className="game-tags">
-                {game.tags.map((tag) => (
-                  <span className="game-tag" key={tag}>
-                    {tag}
-                  </span>
-                ))}
               </div>
 
               <div className="game-footer">
